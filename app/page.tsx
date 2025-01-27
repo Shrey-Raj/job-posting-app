@@ -1,101 +1,114 @@
-import Image from "next/image";
+"use client"
+import React from 'react';
+import { Button } from "@/components/ui/button";
+import Link from 'next/link';
+import { Download } from 'lucide-react';
 
-export default function Home() {
+const LandingPage = () => {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="min-h-screen flex flex-col">
+      {/* Navigation */}
+      <nav className="p-4 flex justify-between items-center max-w-7xl mx-auto w-full">
+        <div className="flex items-center space-x-6">
+          <Link href="/" className="text-xl font-bold">hellojob.io</Link>
+          <div className="hidden md:flex space-x-6">
+            <Link href="/top-job" className="text-gray-600">Top Job</Link>
+            <Link href="/resume" className="text-gray-600">Resume</Link>
+            <Link href="/event" className="text-gray-600">Event</Link>
+          </div>
+        </div>
+        <div className="flex items-center space-x-4">
+          <Button variant="ghost"><Link href='/login'>Log In</Link></Button>
+          <Button variant="default" className="bg-black text-white hover:bg-gray-800">
+            Join Now
+          </Button>
+        </div>
+      </nav>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* Main Content */}
+      <main className="flex-1 flex">
+        <div className="flex flex-col md:flex-row w-full max-w-7xl mx-auto">
+          {/* Left Section */}
+          <div className="flex-1 p-8 md:p-16 flex flex-col justify-center">
+            <div className="mb-8">
+              <span className="text-sm font-medium">Get Hired</span>
+              <h1 className="text-4xl md:text-6xl font-bold mt-4">
+                The Quickest way<br />
+                to <span className="relative">
+                  Hire!
+                  <span className="absolute -z-10 left-0 right-0 bottom-1 bg-orange-200 h-3"></span>
+                </span>
+              </h1>
+              <p className="mt-6 text-gray-600 text-lg">
+                We'll help you find Great Opportunities. Receive your<br />
+                top new job matches directly in your inbox.
+              </p>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-4 mt-4">
+              <Button className="px-6 py-6 text-base">
+                Join Our Platform
+                <span className="ml-2">→</span>
+              </Button>
+              <Button variant="outline" className="px-6 py-6 text-base">
+                <Download className="mr-2 h-5 w-5" />
+                Download App
+              </Button>
+            </div>
+
+            <div className="mt-12 flex items-center">
+              <div className="p-3 bg-gray-50 rounded-lg">
+                <svg
+                  className="h-6 w-6"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M13 10V3L4 14h7v7l9-11h-7z"
+                  />
+                </svg>
+              </div>
+              <div className="ml-4">
+                <p className="font-bold text-xl">1.4 Million</p>
+                <p className="text-sm text-gray-600">Candidates Placed In Top Companies</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Section */}
+          <div className="flex-1 bg-orange-500 p-8 md:p-16 flex flex-col justify-center items-center">
+            <div className="relative">
+              <div className="flex items-center justify-center">
+                <svg viewBox="0 0 100 100" className="w-48 h-48">
+                  <g stroke="white" strokeWidth="2" fill="none">
+                    <path d="M20,50 L40,70 M60,30 L80,50" />
+                  </g>
+                </svg>
+              </div>
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-center">
+                <p className="text-4xl font-bold">2.5K+</p>
+                <p className="text-xl">BRANDS</p>
+              </div>
+              <div className="absolute top-0 right-0 flex gap-2">
+                {['G', 'in'].map((icon, i) => (
+                  <div
+                    key={i}
+                    className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-white"
+                  >
+                    {icon}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
   );
-}
+};
+
+export default LandingPage;
