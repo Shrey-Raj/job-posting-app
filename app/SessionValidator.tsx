@@ -31,7 +31,7 @@ export default function SessionValidator({ children }: { children: React.ReactNo
 
           if (currentPath !== "login" && currentPath !== "signup" && currentPath!=="") {
             toast("Session not found. Login Again"); 
-            router.push("/login");
+            router.push("/");
           } else {
             setIsLoading(false);
           }

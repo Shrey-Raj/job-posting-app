@@ -8,9 +8,7 @@ import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 
 export function Sidebar() {
-  // Mock verification states - replace with actual auth logic
-  let isEmailVerified = false;
-  let isPhoneVerified = false;
+  const [isEmailVerified, setIsEmailVerified] = useState(false);
 
   const [user,setUser] = useState<any>(null); 
 
@@ -18,8 +16,7 @@ export function Sidebar() {
     const response = await getSession();
     console.log("USER = ", response);
 
-    isEmailVerified = response.emailverified;
-    isPhoneVerified = response.phoneverified;
+    setIsEmailVerified(response.emailverified);
 
     setUser(response);
     return response;
@@ -68,12 +65,6 @@ export function Sidebar() {
           <Button className="w-full mb-2" variant="outline" onClick={EmailVerify}>
             <Mail className="mr-2 h-4 w-4" />
             Verify Email
-          </Button>
-        )}
-        {!isPhoneVerified && (
-          <Button className="w-full mb-4" variant="outline">
-            <Phone className="mr-2 h-4 w-4" />
-            Verify Phone
           </Button>
         )}
         <JobPostingDialog />

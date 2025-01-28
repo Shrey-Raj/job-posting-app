@@ -1,12 +1,16 @@
 import { apiCall } from "@/app/utils/utils";
 import { NextResponse, NextRequest } from "next/server";
 
-export async function GET(req: NextRequest) {
+export async function DELETE(req: NextRequest) {
   try {
-    const response = await apiCall(`/api/v1/job/getalljobs`, {
-      method: "GET",
+    const searchParams = req.nextUrl.searchParams;
+    const id = searchParams.get("id");
+
+    const response = await apiCall(`/api/v1/job/delete/${id}`, {
+      method: "DELETE",
     });
 
+    console.log("response = ", response);
     return response;
   } catch (error: any) {
     return NextResponse.json(

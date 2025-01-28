@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { postLogin } from "@/lib";
+import Link from "next/link";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -78,6 +79,12 @@ const Login = () => {
           disabled={loading}
         >
           {loading ? "Logging in..." : "Login"}
+        </button>
+        <button
+          type="submit"
+          className="w-full px-3 py-2 text-slate-400 rounded-lg text-sm hover:text-slate-800"
+        >
+          <Link href="/signup">Dont have an account? Sign Up </Link>
         </button>
       </form>
     </div>

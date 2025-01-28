@@ -10,17 +10,17 @@ const LandingPage = () => {
       {/* Navigation */}
       <nav className="p-4 flex justify-between items-center max-w-7xl mx-auto w-full">
         <div className="flex items-center space-x-6">
-          <Link href="/" className="text-xl font-bold">hellojob.io</Link>
+          <Link href="/" className="text-xl font-bold">Job Board.io</Link>
           <div className="hidden md:flex space-x-6">
-            <Link href="/top-job" className="text-gray-600">Top Job</Link>
+            {/* <Link href="/top-job" className="text-gray-600">Top Job</Link>
             <Link href="/resume" className="text-gray-600">Resume</Link>
-            <Link href="/event" className="text-gray-600">Event</Link>
+            <Link href="/event" className="text-gray-600">Event</Link> */}
           </div>
         </div>
         <div className="flex items-center space-x-4">
           <Button variant="ghost"><Link href='/login'>Log In</Link></Button>
           <Button variant="default" className="bg-black text-white hover:bg-gray-800">
-            Join Now
+            <Link href="/signup">Signup </Link>
           </Button>
         </div>
       </nav>
@@ -45,16 +45,12 @@ const LandingPage = () => {
               </p>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 mt-4">
+            <Link href="/login" className="flex flex-col sm:flex-row gap-4 mt-4">
               <Button className="px-6 py-6 text-base">
                 Join Our Platform
                 <span className="ml-2">→</span>
               </Button>
-              <Button variant="outline" className="px-6 py-6 text-base">
-                <Download className="mr-2 h-5 w-5" />
-                Download App
-              </Button>
-            </div>
+            </Link>
 
             <div className="mt-12 flex items-center">
               <div className="p-3 bg-gray-50 rounded-lg">
@@ -73,14 +69,14 @@ const LandingPage = () => {
                 </svg>
               </div>
               <div className="ml-4">
-                <p className="font-bold text-xl">1.4 Million</p>
+                <p className="font-bold text-xl">Many</p>
                 <p className="text-sm text-gray-600">Candidates Placed In Top Companies</p>
               </div>
             </div>
           </div>
 
           {/* Right Section */}
-          <div className="flex-1 bg-orange-500 p-8 md:p-16 flex flex-col justify-center items-center">
+          <div className="flex-1 bg-green-300 p-8 md:p-16 flex flex-col justify-center items-center">
             <div className="relative">
               <div className="flex items-center justify-center">
                 <svg viewBox="0 0 100 100" className="w-48 h-48">

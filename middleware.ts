@@ -12,8 +12,8 @@ export async function middleware(request: NextRequest) {
     const isHomePage = request.nextUrl.pathname === "/"; 
 
     if (!session && !isLoginPage && !isSignupPage && !isHomePage) {
-      // If no session and not on the login page,signup page or home page then redirect to login
-      return NextResponse.redirect(new URL("/login", request.url));
+      // If no session and not on the login page,signup page or home page then redirect to home
+      return NextResponse.redirect(new URL("/", request.url));
     } 
     else if (session && (isLoginPage || isSignupPage || isHomePage)) {
       // If there is a session and trying to access the login page , signupPage or home page , redirect to dashboard
@@ -24,8 +24,8 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   } catch (error) {
     console.error("Session check error:", error);
-    // If the session is invalid or expired, redirect to the login page
-    return NextResponse.redirect(new URL("/login", request.url));
+    // If the session is invalid or expired, redirect to the home page
+    return NextResponse.redirect(new URL("/", request.url));
   }
 }
 

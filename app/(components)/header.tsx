@@ -32,13 +32,7 @@ export function Header() {
             <span className="font-semibold">Job Board</span>
           </Link>
           <nav className="flex-1 flex items-center gap-6 text-sm">
-            <Link href="/talent" className="text-foreground/60 hover:text-foreground">
-              Find Talent
-            </Link>
-            <Link href="/post-job" className="text-foreground/60 hover:text-foreground">
-              Upload Job
-            </Link>
-            <Link href="/about" className="text-foreground/60 hover:text-foreground">
+            <Link href="https://github.com/Shrey-Raj/job-posting-app" className="text-foreground/60 hover:text-foreground">
               <GithubIcon />
             </Link>
           </nav>
@@ -62,7 +56,7 @@ export function Header() {
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-foreground">Name</label>
-              <Input value={user?.name || "John Doe"} readOnly />
+              <Input value={user?.username || "John Doe"} readOnly />
             </div>
             <div>
               <label className="block text-sm font-medium text-foreground">Email</label>

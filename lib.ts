@@ -1,9 +1,10 @@
 "use server";
 import { cookies } from "next/headers";
-import { jwtVerify, SignJWT } from "jose";
-import { apiCall } from "@/app/utils/utils";
+import { SignJWT } from "jose";
 
-const APP_BASE_URL = "http://localhost:3000";
+const APP_BASE_URL = process.env.APP_BASE_URL ;
+//  "http://localhost:3000";
+
 
 const session_signing_key = "oppenhomies";
 
@@ -12,7 +13,9 @@ const key = new TextEncoder().encode(session_signing_key);
 export async function getSession() {
   const all_cookies = await cookies();
   const session = all_cookies.get("session")?.value;
-  console.log("SESSION = ", session);
+  // console.log("SESSION = ", session);
+
+  // console.log("APP BASE URL = "  ,APP_BASE_URL ) ;
 
   if (!session) return null;
   return await decryptJWTToken(session);
@@ -97,6 +100,36 @@ export const postLogin = async (email: string, password: string) => {
   }
 };
 
+export const register = async (email: string, password: string , username:string) => {
+  try {
+    const response = await fetch(APP_BASE_URL + "/api/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password, username }), 
+    });
+
+    const result = await response.json();
+
+    const accessToken = result?.data?.data?.token;
+
+    (await cookies()).set("session", accessToken, { httpOnly: true });
+
+    return {
+      success: result.success,
+      message: result.message || "An unexpected error occurred.",
+      data: result.data || null,
+    };
+  } catch (error: any) {
+    console.error("Error in postLogin:", error);
+    return {
+      success: false,
+      message: error.message || "An unexpected error occurred.",
+      data: null,
+    };
+  }
+};
+
+
 export const emailverify = async (email: any) => {
   try {
     const response = await fetch(APP_BASE_URL + "/api/verifyemail", {
@@ -149,24 +182,98 @@ export const createJob = async (
 };
 
 export const fetchAllJobs = async () => {
-    try {
-      const response = await fetch(APP_BASE_URL +'/api/job/getalljobs', {
-        method: 'GET',
-      });
+  try {
+    const response = await fetch(APP_BASE_URL + "/api/job/getalljobs", {
+      method: "GET",
+    });
+
+    // console.log("from all jobs , " , response);
+    // return;
+    const result = await response.json();
+    return {
+      success: result.success,
+      message: result.message || "An unexpected error occurred.",
+      data: result,
+    };
+  } catch (error: any) {
+    console.error("Error in fetching jobs:", error);
+    return {
+      success: false,
+      message: error.message || "An unexpected error occurred.",
+    };
+  }
+};
+
+export const deleteJob = async (id: string) => {
+  try {
+    const response = await fetch(APP_BASE_URL + "/api/job/delete?id=" + id, {
+      method: "DELETE",
+    });
+
+    const result = await response.json();
+
+    return {
+      success: result.success,
+      message: result.message || "An unexpected error occurred.",
+      data: result,
+    };
+  } catch (error: any) {
+    console.error("Error in fetching jobs:", error);
+    return {
+      success: false,
+      message: error.message || "An unexpected error occurred.",
+    };
+  }
+};
+
+export const updatejob = async (
+  id: string,
+  { title, description, experienceLevel, endDate }: any
+) => {
+  try {
+    const response = await fetch(APP_BASE_URL + "/api/job/update?id=" + id, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title, description, experienceLevel, endDate }),
+    });
+
+    const result = await response.json();
+
+    return {
+      success: result.success,
+      message: result.message || "An unexpected error occurred.",
+      data: result,
+    };
+  } catch (error: any) {
+    console.error("Error in fetching jobs:", error);
+    return {
+      success: false,
+      message: error.message || "An unexpected error occurred.",
+    };
+  }
+};
 
 
-      console.log("from all jobs , " , response); 
-      return;
-      const result = await response.json();
-        return {
-        success: result.success,
-        message: result.message || "An unexpected error occurred.",
-      };
-    } catch (error: any) {
-      console.error("Error in fetching jobs:", error);
-      return {
-        success: false,
-        message: error.message || "An unexpected error occurred.",
-      };
-    }
-  };
+export const sendjobemail = async (jobDetails:any, userList:any[]) => {
+  try {
+    const response = await fetch(APP_BASE_URL + "/api/job/notify" , {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ jobDetails, userList}),
+    });
+
+    const result = await response.json();
+
+    return {
+      success: result.success,
+      message: result.message || "An unexpected error occurred.",
+      data: result,
+    };
+  } catch (error: any) {
+    console.error("Error in fetching jobs:", error);
+    return {
+      success: false,
+      message: error.message || "An unexpected error occurred.",
+    };
+  }
+};

@@ -16,7 +16,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { createJob } from "@/lib"
+import { createJob, sendjobemail } from "@/lib"
 import { toast } from "react-toastify"
 
 export function JobPostingDialog() {
@@ -25,6 +25,7 @@ export function JobPostingDialog() {
   const [description, setDescription] = useState("")
   const [experienceLevel, setExperienceLevel] = useState("")
   const [endDate, setEndDate] = useState("")
+  const [candidateEmails, setCandidateEmails] = useState([]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -41,7 +42,17 @@ export function JobPostingDialog() {
       toast.error("Failed to create job. Please try again.");
     }
 
-    setOpen(false)
+    setOpen(false); 
+
+
+    if(candidateEmails.length > 0){
+      // const result = await sendjobemail({title,description,experienceLevel,endDate},candidateEmails); 
+      // if(result.success){
+      //   toast.success("Candidates have been notified successfully!"); 
+      // }
+      console.log(candidateEmails); 
+    }
+
   }
 
   return (
