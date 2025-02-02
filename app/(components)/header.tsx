@@ -32,7 +32,7 @@ export function Header() {
             <Bell className="h-5 w-5" />
           </Button>
           <Avatar onClick={() => setIsDialogOpen(true)} className="cursor-pointer">
-            <AvatarImage src="/placeholder.svg" />
+            <AvatarImage src="https://static.vecteezy.com/system/resources/previews/000/574/512/original/vector-sign-of-user-icon.jpg" />
             <AvatarFallback>AC</AvatarFallback>
           </Avatar>
         </div>

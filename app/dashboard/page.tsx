@@ -28,9 +28,19 @@ export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedJob, setSelectedJob] = useState<any>(null);
 
+  const [myJobs,setMyJobs] = useState<any[]>([]);
+  const [otherJobs,setOtherJobs] = useState<any[]>([]);
+
+
   useEffect(() => {
     setJobs(allJobs || []);
+    filterJobs();
   }, [allJobs]);
+
+  const filterJobs = ()=>{
+    setMyJobs(allJobs.filter((item)=> item.email === user?.email));
+    setOtherJobs(allJobs.filter((item)=> item.email !== user?.email));
+  }
 
   const handleSearch = (e: any) => {
     setSearchTerm(e.target.value);
@@ -109,8 +119,8 @@ export default function Home() {
       <div className="container p-10">
         <h2 className="text-2xl font-semibold mb-6">My Jobs</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-          {filteredJobs.length > 0 ? (
-            filteredJobs.map(
+          {myJobs.length > 0 ? (
+            myJobs.map(
               (job, index) =>
                 user &&
                 job.email === user.email && (
@@ -216,8 +226,8 @@ export default function Home() {
 
         <h2 className="text-2xl font-semibold mb-6">Other Jobs</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredJobs.length > 0 ? (
-            filteredJobs.map(
+          {otherJobs.length > 0 ? (
+            otherJobs.map(
               (job, index) =>
                 user &&
                 job.email !== user.email && (

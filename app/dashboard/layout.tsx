@@ -16,20 +16,14 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  
-
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <div className="flex h-screen">
-        <ToastContainer />
-          <Sidebar />
-          <div className="flex-1 flex flex-col">
-            <Header />
-            <main className="flex-1 overflow-auto">{children}</main>
-          </div>
-        </div>
-      </body>
-    </html>
+    <div className="flex h-screen">
+      <ToastContainer />
+      <Sidebar />
+      <div className="flex-1 flex flex-col">
+        <Header />
+        <main className="flex-1 overflow-auto">{children}</main>
+      </div>
+    </div>
   );
 }
