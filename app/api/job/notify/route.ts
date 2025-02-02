@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const {jobDetails, userList } = body;
 
-    const response = await apiCall(`/api/v1/job/create`, {
+    const response = await apiCall(`/api/v1/job/sendJobEmail`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({jobDetails, userList }),

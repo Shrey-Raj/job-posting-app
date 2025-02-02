@@ -12,6 +12,7 @@ export const apiCall = async (url: string, options: RequestInit) => {
 
     if (!res.ok) {
       const errorData = await res.json();
+      console.log("Error : " , errorData);
       return NextResponse.json(
         {
           success: false,

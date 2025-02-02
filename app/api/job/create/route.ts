@@ -5,9 +5,9 @@ import { NextResponse, NextRequest } from "next/server";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { title, description, experienceLevel, endDate } = body;
+    const { title, description, experienceLevel, endDate, email } = body;
 
-    if (!title || !description || !experienceLevel || !endDate) {
+    if (!title || !description || !experienceLevel || !endDate || !email) {
       return NextResponse.json(
         { success: false, message: "All fields are required." },
         { status: 400 }
@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
     const response = await apiCall(`/api/v1/job/create`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title, description, experienceLevel, endDate }),
+      body: JSON.stringify({ title, description, experienceLevel, endDate, email }),
     });
 
     return response;

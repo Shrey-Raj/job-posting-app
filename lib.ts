@@ -100,8 +100,11 @@ export const postLogin = async (email: string, password: string) => {
   }
 };
 
-export const register = async (email: string, password: string , username:string) => {
+export const register = async ( username:string , email: string, password: string) => {
   try {
+    
+    console.log(email , username , password); 
+
     const response = await fetch(APP_BASE_URL + "/api/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -109,6 +112,8 @@ export const register = async (email: string, password: string , username:string
     });
 
     const result = await response.json();
+
+    console.log(result.data); 
 
     const accessToken = result?.data?.data?.token;
 
@@ -140,6 +145,8 @@ export const emailverify = async (email: any) => {
 
     const result = await response.json();
 
+    console.log("Result from email verify = " , response) ;
+
     return {
       success: result.success,
       message: result.message || "An unexpected error occurred.",
@@ -157,13 +164,14 @@ export const createJob = async (
   title: string,
   description: string,
   experienceLevel: string,
-  endDate: string
+  endDate: string,
+  email:string 
 ) => {
   try {
     const response = await fetch(APP_BASE_URL + "/api/job/create", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title, description, experienceLevel, endDate }),
+      body: JSON.stringify({ title, description, experienceLevel, endDate , email }),
     });
 
     const result = await response.json();
@@ -171,6 +179,7 @@ export const createJob = async (
     return {
       success: result.success,
       message: result.message || "An unexpected error occurred.",
+      data : result 
     };
   } catch (error: any) {
     console.error("Error in emailverify:", error);

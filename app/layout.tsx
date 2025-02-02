@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import SessionValidator from "./SessionValidator";
 import { ToastContainer } from "react-toastify";
+import { UserProvider } from "./utils/UserContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,7 +30,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <SessionValidator> <ToastContainer />{children}</SessionValidator>
+        <SessionValidator>
+          <UserProvider>
+            <ToastContainer />
+            {children}
+          </UserProvider>
+        </SessionValidator>
       </body>
     </html>
   );

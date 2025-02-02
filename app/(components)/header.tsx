@@ -8,20 +8,12 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { getSession } from "@/lib";
+import { useUser } from "../utils/UserContext";
 
 export function Header() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [user, setUser] = useState<any>(null);
+  const { user, allJobs } = useUser();
 
-  const fetchUser = async () => {
-    const response = await getSession();
-    console.log("USER = ", response);
-    setUser(response);
-  };
-
-  useEffect(() => {
-    fetchUser();
-  }, []);
 
   return (
     <>
@@ -61,10 +53,6 @@ export function Header() {
             <div>
               <label className="block text-sm font-medium text-foreground">Email</label>
               <Input value={user?.email || "johndoe@example.com"} readOnly />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-foreground">Phone</label>
-              <Input value={user?.phone || "Not Available"} readOnly />
             </div>
           </div>
           <DialogFooter>

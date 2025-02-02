@@ -6,25 +6,19 @@ import { JobPostingDialog } from "./job-posting-dialog";
 import { getSession, logout, emailverify } from "@/lib";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
+import { useUser } from "../utils/UserContext";
 
 export function Sidebar() {
   const [isEmailVerified, setIsEmailVerified] = useState(false);
-
-  const [user,setUser] = useState<any>(null); 
-
-  const fetchUser = async () => {
-    const response = await getSession();
-    console.log("USER = ", response);
-
-    setIsEmailVerified(response.emailverified);
-
-    setUser(response);
-    return response;
-  };
+  const [email, setEmail] = useState("");
+  const { user, allJobs } = useUser();
 
   useEffect(() => {
-    fetchUser();
-  }, []);
+    if (user) {
+      setIsEmailVerified(user.emailverified);
+      setEmail(user.email) ;
+    }
+  }, [user]);
 
   const handleLogout = async () => {
     try {
@@ -45,10 +39,10 @@ export function Sidebar() {
 
   const EmailVerify = async () => {
     try {
-      const result = await emailverify(user.email);
+      const result = await emailverify(email);
+      console.log("response = " , result , "\n" , email);
       if (result && result.success) {
         toast.success("Verification email sent successfully!");
-        fetchUser();
       } else {
         toast.error("Verification email could not be sent.");
       }
