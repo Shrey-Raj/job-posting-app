@@ -76,7 +76,7 @@ const LandingPage = () => {
           </div>
 
           {/* Right Section */}
-          <div className="flex-1 bg-green-300 p-8 md:p-16 flex flex-col justify-center items-center">
+          <div className="flex-1 bg-slate-700 p-8 md:p-16 flex flex-col justify-center items-center">
             <div className="relative">
               <div className="flex items-center justify-center">
                 <svg viewBox="0 0 100 100" className="w-48 h-48">
