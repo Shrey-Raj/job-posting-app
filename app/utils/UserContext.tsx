@@ -51,7 +51,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const fetchUser = async () => {
     try {
       const response = await getSession(); 
-      console.log("USER = ", response);
+      // console.log("USER = ", response);
       setUser(response); 
     } catch (error) {
       console.error("Failed to fetch user:", error);
