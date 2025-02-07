@@ -4,7 +4,6 @@ import { createContext, useContext, useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { fetchAllJobs, getSession } from "@/lib";
 
-// Define the User type based on your API response
 interface User {
   createdAt: string;
   email: string;
@@ -18,7 +17,6 @@ interface User {
   _id: string;
 }
 
-// Define the Job type based on your API response
 interface Job {
   _id: string;
   title: string;
@@ -28,16 +26,14 @@ interface Job {
   email: string;
 }
 
-// Define the context type
 interface UserContextType {
-  user: User | null; // The current user object or null if not logged in
-  setUser: (user: User | null) => void; // Function to update the user
-  isLoading: boolean; // Loading state while fetching user data
-  allJobs: Job[]; // Array of all jobs fetched from the API
-  setAllJobs: (jobs: Job[]) => void; // Function to update the jobs array
+  user: User | null; 
+  setUser: (user: User | null) => void; 
+  isLoading: boolean; 
+  allJobs: Job[]; 
+  setAllJobs: (jobs: Job[]) => void; 
 }
 
-// Create the context with default values
 const UserContext = createContext<UserContextType>({
   user: null,
   setUser: () => {},
@@ -46,39 +42,35 @@ const UserContext = createContext<UserContextType>({
   setAllJobs: () => {},
 });
 
-// UserProvider component
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null); // State for user data
-  const [isLoading, setIsLoading] = useState(true); // State for loading status
-  const [allJobs, setAllJobs] = useState<Job[]>([]); // State for all jobs
-  const pathname = usePathname(); // Get the current pathname for route-based logic
+  const [user, setUser] = useState<User | null>(null); 
+  const [isLoading, setIsLoading] = useState(true); 
+  const [allJobs, setAllJobs] = useState<Job[]>([]);
+  const pathname = usePathname(); 
 
-  // Fetch user data
   const fetchUser = async () => {
     try {
-      const response = await getSession(); // Fetch session data
+      const response = await getSession(); 
       console.log("USER = ", response);
-      setUser(response); // Set the user data in state
+      setUser(response); 
     } catch (error) {
       console.error("Failed to fetch user:", error);
-      setUser(null); // Reset user state on error
+      setUser(null); 
     } finally {
-      setIsLoading(false); // Stop loading
+      setIsLoading(false); 
     }
   };
 
-  // Fetch all jobs from the API
   const fetchJobs = async () => {
     try {
-      const response = await fetchAllJobs(); // Fetch all jobs
-      setAllJobs(response.data?.data?.data?.jobs); // Set the jobs array in state
+      const response = await fetchAllJobs();
+      setAllJobs(response.data?.data?.data?.jobs);
     } catch (error) {
       console.error("Failed to fetch jobs:", error);
-      setAllJobs([]); // Reset jobs array on error
+      setAllJobs([]); 
     }
   };
 
-  // Fetch user and jobs on component mount or pathname change
   useEffect(() => {
     fetchUser();
     fetchJobs();
@@ -94,5 +86,4 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-// Custom hook to use the UserContext
 export const useUser = () => useContext(UserContext);
